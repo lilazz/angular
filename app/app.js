@@ -1,5 +1,2 @@
-(function() {
-	'use strict';
 
-	angular.module('app', ['app.demoComponents']);
-})();
+var app = angular.module('app', []);
