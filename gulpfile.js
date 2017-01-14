@@ -6,7 +6,7 @@ var eventStream = require('event-stream');
 
 var paths = {
 	scripts: './app/**/*.js',
-	styles: ['./app/scss/**/*.css', './app/scss/**/*.scss'],
+	styles: ['./app/**/*.css', './app/**/*.scss'],
 	images: './app/**/*',
 	index: './app/index.html',
 	partials: ['./app/**/*.html', '!app/index.html'],
@@ -29,6 +29,11 @@ pipes.buildAppScriptDev = function() {
 	return gulp.src(paths.scripts)
 	.pipe(plugins.concat('app.js'))
 	.pipe(gulp.dest(paths.distDev));
+};
+
+pipes.buildStyleDev = function(){
+	return gulp.src(paths.styles)
+	.pipe(gulp.dest(paths.distDev + '/css'));
 };
 //for index
 pipes.buildIndexDev = function() {
@@ -56,10 +61,7 @@ pipes.prosessedImagesDev = function(){
 	.pipe(gulp.dest(paths.distDev + '/img'));
 };
 
-pipes.buildStyleDev = function(){
-	return gulp.src(paths.styles)
-	.pipe(gulp.dest(paths.distDev + '/css'));
-};
+
 
 pipes.buildAppDev = function(){
 	return eventStream.merge(pipes.buildIndexDev(),
@@ -74,6 +76,8 @@ gulp.task('build-index-dev', pipes.buildIndexDev);
 gulp.task('build-partials', pipes.buildPartialsFilesDev);
 
 gulp.task('build-app-dev', pipes.buildAppDev);
+
+gulp.task('build-styles', pipes.buildStyleDev);
 
 gulp.task('watch-dev', ['build-app-dev'], function() {
 	var reload = browserSync.reload;
@@ -98,6 +102,11 @@ gulp.watch(paths.scripts, function(){
 
 gulp.watch(paths.partials, function(){
 	return pipes.buildPartialsFilesDev()
+	.pipe(reload({stream: true}));
+});	
+
+gulp.watch(paths.styles, function(){
+	return pipes.buildStyleDev()
 	.pipe(reload({stream: true}));
 });	
 
