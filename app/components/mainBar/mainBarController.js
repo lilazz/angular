@@ -2,21 +2,62 @@
 	app.controller('mainBarController', function ($scope, $rootScope) {
 		$scope.persons = [];
 		$scope.person = {};
-clonePerson = {};
-		var totalPersons = {
-			total:0,
-			superPower:0,
-			rich:0,
-			genious:0
+		person = {};
+		totalPersons = {};
+		
+	
+
+		$scope.addPerson = (evt) => {
+			//console.log($scope.index);
+			$scope.persons.push($scope.person);
+			changePerson($scope.person);
+			$rootScope.$broadcast("infoSend", totalPersons);
+			$scope.person = {};
+		};
+
+		$scope.deletePerson = (index) => {
+			
+			$scope.persons.splice(index,1);
+			
+			changePerson($scope.persons[index]);
+			
+			$rootScope.$broadcast("infoSend", totalPersons);
+
 		};
 
 		$scope.checkboxWatcher = (index) => {
+			console.log($scope.persons[index]);
+			changePerson($scope.persons[index]);
+			$rootScope.$broadcast("infoSend", totalPersons);
+		};
+
+		function changePerson (person)  {
+			totalPersons = {
+			superPower:0,
+			rich:0,
+			genious:0
+			};
+			totalPersons.total = $scope.persons.length;
+			
+			console.log(person);
+
+			for (let key in person) {
+				totalPersons[key] += Number(person[key]);
+
+			}
+			console.log(totalPersons);
+			//return totalPersons;
+			
+		};
+
+		})
+	/*	$scope.checkboxWatcher = (index) => {
 			console.log($scope.persons[index]);
 			if ($scope.persons[index].superPower) {totalPersons.superPower++};
 			if ($scope.persons[index].rich) {totalPersons.rich++};
 			if ($scope.persons[index].genious) {totalPersons.genious++};
 			console.log(totalPersons);
-			//$rootScope.$broadcast("infoSend", totalPersons);
+			$rootScope.$broadcast("infoSend", totalPersons);
 
 		}
 		
@@ -79,5 +120,5 @@ console.log($scope.person);
 			$rootScope.$broadcast("infoSend", totalPersons);
 		};
 
-
-	})
+*/
+	

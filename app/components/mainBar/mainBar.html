@@ -22,14 +22,10 @@
   		</tr>
   		<tr class="active" ng-repeat="OnePerson in persons">
 			<td>{{OnePerson.name}}</td>
-			<td ng-if="OnePerson.superPower"><input type="checkbox" checked ng-model="OnePerson.superPower" ng-change="checkboxWatcher($index)"></td>
+			
 		
-			<!--<td ng-if="!OnePerson.superPower"><input type="checkbox" ng-model="OnePerson.superPower" ng-change="checkboxWatcher($index)"></td>
-			<td ng-if="OnePerson.rich"><input type="checkbox" checked ng-model="OnePerson.rich" ng-change="checkboxWatcher($index)"></td>
-			<td ng-if="!OnePerson.rich"><input type="checkbox" ng-model="OnePerson.rich" ng-change="checkboxWatcher($index)"></td>
-			<td ng-if="OnePerson.genious"><input type="checkbox" checked ng-model="OnePerson.genious" ng-change="checkboxWatcher($index)"></td>
-			<td ng-if="!OnePerson.genious"><input type="checkbox" ng-model="OnePerson.genious" ng-change="checkboxWatcher($index)"></td> -->
-			<td><input type="checkbox" ng-model="OnePerson.superPower" ng-checked="person[index].superPower" ng-change="checkboxWatcher($index)"></td>
+			
+			<td><input type="checkbox" ng-model="OnePerson.superPower" ng-checked="OnePerson.superPower" ng-change="checkboxWatcher($index)"></td>
 			<td><input type="checkbox" ng-model="OnePerson.rich" ng-checked="OnePerson.rich" ng-change="checkboxWatcher($index)"></td>
 			<td><input type="checkbox" ng-model="OnePerson.genious" ng-checked="OnePerson.genious" ng-change="checkboxWatcher($index)"></td>
 
@@ -38,10 +34,12 @@
 		</table>
 
 		<div ng-show = "data.visible">
-			<span >power</span>
-			<span >rich</span>
-			<span >genious</span>
-
+			<a ui-sref="superPower">superPower<span> </span>
+  		</a>
+			<a ui-sref="rich">rich<span> </span>
+  		</a>
+  		<a ui-sref="genious">genious<span> </span>
+  		</a>
 		</div>
 	</div>
 	</div>
