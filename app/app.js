@@ -4,20 +4,21 @@ var app = angular.module('app', ['ui.router'])
     $stateProvider
     .state('mainBar', {
       url: "/mainBar",
-      templateUrl: "app/components/mainBar/mainBar.html"
+      templateUrl: "components/mainBar/mainBar.html",
+      controller: "mainBarController"
     })
-    .state('mainBar.superPower', {
-      url: "/superPower",
-      templateUrl: "app/components/mainBar/superPower.html"
-    })
-    .state('mainBar.rich', {
-      url: "/rich",
-      templateUrl: "app/components/mainBar/rich.html"
-    })
-    .state('mainBar.genious', {
-      url: "/genious",
-      templateUrl: "app/components/mainBar/genious.html"
-    })
-    ;
-    $urlRouterProvider.otherwise('/components/mainBar/mainBar.html');
+     .state('superPower', {
+       url: "/superPower",
+       templateUrl: "components/mainBar/mainBar.html",
+     })
+     .state('rich', {
+       url: "/rich",
+       templateUrl: "components/mainBar/mainBar.html",
+     })
+     .state('genious', {
+       url: "/genious",
+       templateUrl: "components/mainBar/mainBar.html",
+     })
+     ;
+    $urlRouterProvider.otherwise('mainBar');
   });

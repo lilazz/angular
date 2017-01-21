@@ -1,16 +1,25 @@
 	
-	app.controller('mainBarController', function ($scope, $rootScope) {
+	app.controller('mainBarController', function ($scope, $rootScope, $interval) {
+		$scope.classes = {
+			name: "glyphicon glyphicon-triangle-bottom",
+			superPower: "glyphicon glyphicon-triangle-bottom",
+			rich: "glyphicon glyphicon-triangle-bottom",
+			genious: "glyphicon glyphicon-triangle-bottom"
+		}
+		//$scope.classes = "glyphicon glyphicon-triangle-bottom";
+		$scope.reverse = true;
 		$scope.persons = [];
 		$scope.person = {};
-		person = {};
-		totalPersons = {};
+		let person = {};
+		let totalPersons = {};
+		$interval (function () {
+			console.log ($scope.byfield)
+		},500)
 		
-	
-
 		$scope.addPerson = (evt) => {
 			//console.log($scope.index);
 			$scope.persons.push($scope.person);
-			changePerson($scope.person);
+			changePerson();
 			$rootScope.$broadcast("infoSend", totalPersons);
 			$scope.person = {};
 		};
@@ -19,7 +28,7 @@
 			
 			$scope.persons.splice(index,1);
 			
-			changePerson($scope.persons[index]);
+			changePerson();
 			
 			$rootScope.$broadcast("infoSend", totalPersons);
 
@@ -27,11 +36,39 @@
 
 		$scope.checkboxWatcher = (index) => {
 			console.log($scope.persons[index]);
-			changePerson($scope.persons[index]);
+			changePerson();
 			$rootScope.$broadcast("infoSend", totalPersons);
 		};
 
-		function changePerson (person)  {
+		$scope.sortBy = (propName) => {
+					
+			let down = "glyphicon glyphicon-triangle-bottom";
+			let top = "glyphicon glyphicon-triangle-top";
+			//console.log($scope.person);
+			if ($scope.classes[propName] === top) {
+				$scope.classes[propName] = down;
+
+				
+			} else {
+				$scope.classes[propName] = top;
+				
+			}
+
+			
+			$scope.reverse = ($scope.propertyName === propName) ? !$scope.reverse : false;
+    		$scope.propertyName = propName;
+
+		}
+		$scope.showChoosed = (propName) => {
+			$scope.byfield = {};
+			console.log ('clear')
+			$scope.person[propName]=true;
+			$scope.byfield[propName] = true;	
+			console.log ($scope.byfield) 
+
+		}	
+
+		function changePerson ()  {
 			totalPersons = {
 			superPower:0,
 			rich:0,
@@ -39,86 +76,14 @@
 			};
 			totalPersons.total = $scope.persons.length;
 			
-			console.log(person);
+			for (let i=0;i<$scope.persons.length;i++){
+				for (let key in $scope.persons[i]) {
+					totalPersons[key] += Number($scope.persons[i][key]);
 
-			for (let key in person) {
-				totalPersons[key] += Number(person[key]);
-
+				}
 			}
-			console.log(totalPersons);
-			//return totalPersons;
 			
 		};
 
 		})
-	/*	$scope.checkboxWatcher = (index) => {
-			console.log($scope.persons[index]);
-			if ($scope.persons[index].superPower) {totalPersons.superPower++};
-			if ($scope.persons[index].rich) {totalPersons.rich++};
-			if ($scope.persons[index].genious) {totalPersons.genious++};
-			console.log(totalPersons);
-			$rootScope.$broadcast("infoSend", totalPersons);
-
-		}
-		
-		$scope.addPerson = (evt) => {
-			
-			for (key in $scope.person){
-				clonePerson[key] = $scope.person[key]
-			}
-			$scope.persons.push(clonePerson);
-			totalPersons.total = $scope.persons.length;
-			console.log(totalPersons.total);
-			//for (key in totalPersons){
-			if (clonePerson.superPower) {totalPersons.superPower++};
-			if (clonePerson.rich) {totalPersons.rich++};
-			if (clonePerson.genious) {totalPersons.genious++};
-		//}
-			
-			$rootScope.$broadcast("infoSend", totalPersons);
-console.log($scope.person);
-			$scope.person = {};
-			clonePerson = {};
-		};
-
-
-
-		$scope.deletePerson = (index) => {
-
-			$scope.persons.splice(index,1);
-			totalPersons.total = $scope.persons.length;
-			console.log(totalPersons.total);
-
-			if (!$scope.persons[index]) {
-				totalPersons = {
-			total:0,
-			superPower:0,
-			rich:0,
-			genious:0
-		};
-			} else {
-			if ($scope.persons[index].superPower) {
-					if (totalPersons.superPower>1) {
-						totalPersons.superPower--;
-					} else {
-						totalPersons.superPower=0;}
-					};
-			if ($scope.persons[index].rich) {
-				if (totalPersons.rich>1) {
-					totalPersons.rich--;
-				} else {
-					totalPersons.rich=0;}
-				};
-			if ($scope.persons[index].genious) {
-				if (totalPersons.genious>1) {
-					totalPersons.genious--;
-				} else {
-					totalPersons.genious=0;}
-				};
-
-			};
-			$rootScope.$broadcast("infoSend", totalPersons);
-		};
-
-*/
 	

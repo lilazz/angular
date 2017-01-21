@@ -1,47 +1,52 @@
 <div ng-controller='mainBarController'>
-{{test}}
-<div class="row">
-<div class="col-md-6">
-	<h2>Add new Person</h2>
-	<input type="text" placeholder="Enter name" ng-model="person.name">
-	<label><input type="checkbox" ng-model="person.superPower">Super Power</label>
-	<label><input type="checkbox" ng-model="person.rich">Rich</label>
-	<label><input type="checkbox" ng-model="person.genious">Genious</label>
-	<button class="add-name" ng-click="addPerson()"> Add </button>
-	</div>
-	</div>
+	
 	<div class="row">
-	<div class="col-md-6">
-		<table class="table table-bordered" >
-  		<tr>
-  			<th>Name</th>
-  			<th>SuperPower</th>
-  			<th>Rich</th>
-  			<th>Genious</th>
-  			<th>Delete</th>
-  		</tr>
-  		<tr class="active" ng-repeat="OnePerson in persons">
-			<td>{{OnePerson.name}}</td>
-			
-		
-			
-			<td><input type="checkbox" ng-model="OnePerson.superPower" ng-checked="OnePerson.superPower" ng-change="checkboxWatcher($index)"></td>
-			<td><input type="checkbox" ng-model="OnePerson.rich" ng-checked="OnePerson.rich" ng-change="checkboxWatcher($index)"></td>
-			<td><input type="checkbox" ng-model="OnePerson.genious" ng-checked="OnePerson.genious" ng-change="checkboxWatcher($index)"></td>
-
-			<td><span class="glyphicon glyphicon-remove" ng-click="deletePerson($index)"></span></td>
-  		</tr>
-		</table>
-
-		<div ng-show = "data.visible">
-			<a ui-sref="superPower">superPower<span> </span>
-  		</a>
-			<a ui-sref="rich">rich<span> </span>
-  		</a>
-  		<a ui-sref="genious">genious<span> </span>
-  		</a>
+		<div class="col-md-6">
+			<h2>Add new Person</h2>
+			<input type="text" placeholder="Enter name" ng-model="person.name">
+			<label><input type="checkbox" ng-model="person.superPower">Super Power</label>
+			<label><input type="checkbox" ng-model="person.rich">Rich</label>
+			<label><input type="checkbox" ng-model="person.genious">Genious</label>
+			<button class="add-name" ng-click="addPerson()"> Add </button>
 		</div>
 	</div>
+
+{{byfield}}
+	<div class="row">
+		<div class="col-md-6">
+			<table class="table table-bordered" >
+				<tr>
+					<th>Name <span  ng-class="classes.name" ng-click="sortBy('name')"></span></th>
+
+					<th>SuperPower <span  ng-class="classes.superPower" ng-click="sortBy('superPower')"></span></th>
+					<th>Rich <span  ng-class="classes.rich" ng-click="sortBy('rich')"></span></th>
+					<th>Genious <span  ng-class="classes.genious" ng-click="sortBy('genious')"></span></th>
+					<th>Delete</th>
+				</tr>
+				<tr class="active" ng-repeat="OnePerson in persons | orderBy:propertyName:reverse | filter: byfield">
+
+					<td>{{OnePerson.name}}</td>
+
+					<td><input type="checkbox" ng-model="OnePerson.superPower" ng-checked="OnePerson.superPower" ng-change="checkboxWatcher($index)"></td>
+					<td><input type="checkbox" ng-model="OnePerson.rich" ng-checked="OnePerson.rich" ng-change="checkboxWatcher($index)"></td>
+					<td><input type="checkbox" ng-model="OnePerson.genious" ng-checked="OnePerson.genious" ng-change="checkboxWatcher($index)"></td>
+
+					<td><span class="glyphicon glyphicon-remove" ng-click="deletePerson($index)"></span></td>
+				</tr>
+			</table>
+
+
+
+			<div >
+				<a ui-sref="superPower" ng-click="showChoosed('superPower')">superPower<span> </span>
+				</a>
+				<a ui-sref="rich" ng-click="showChoosed('rich')">rich<span> </span>
+				</a>
+				<a ui-sref="genious" ng-click="showChoosed('genious')">genious<span> </span>
+				</a>
+			</div>
+		</div>
 	</div>
+		
 </div>
 
