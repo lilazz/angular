@@ -7,3 +7,26 @@ h1 {
 	font-family: Arial;
 	font-size: 18;
 }
+.text {
+	text-align:  center;
+}
+.display {
+	display:block;
+}
+.hidden {
+	display: none;
+}
+.mainBar{
+	
+	float: left;
+	width: 65%;
+	outline: 2px solid #000;
+	min-height: 500px;
+	min-width: 500px;
+	margin-left: 5%;
+}
+.sideBar {
+	outline: 2px solid #000;
+	margin-left: 71%;
+	min-height: 500px;
+}

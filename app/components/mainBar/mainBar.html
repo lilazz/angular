@@ -1,19 +1,20 @@
-<div ng-controller='mainBarController'>
+<div  ng-controller='mainBarController' class="mainBar">
 	
 	<div class="row">
 		<div class="col-md-6">
-			<h2>Add new Person</h2>
+			<h2 class="text">Add new Person</h2>
 			<input type="text" placeholder="Enter name" ng-model="person.name">
-			<label><input type="checkbox" ng-model="person.superPower">Super Power</label>
-			<label><input type="checkbox" ng-model="person.rich">Rich</label>
+			<label><input type="checkbox" ng-model="person.superPower">Super Power  </label>
+			<label><input type="checkbox" ng-model="person.rich">Rich  </label>
 			<label><input type="checkbox" ng-model="person.genious">Genious</label>
 			<button class="add-name" ng-click="addPerson()"> Add </button>
 		</div>
 	</div>
 
-{{byfield}}
+
 	<div class="row">
-		<div class="col-md-6">
+		<div ng-show="isPerson" class="col-md-6">
+			
 			<table class="table table-bordered" >
 				<tr>
 					<th>Name <span  ng-class="classes.name" ng-click="sortBy('name')"></span></th>
@@ -23,7 +24,7 @@
 					<th>Genious <span  ng-class="classes.genious" ng-click="sortBy('genious')"></span></th>
 					<th>Delete</th>
 				</tr>
-				<tr class="active" ng-repeat="OnePerson in persons | orderBy:propertyName:reverse | filter: byfield">
+				<tr class="active" ng-repeat="OnePerson in persons | orderBy:propertyName:reverse | filter: byfield" >
 
 					<td>{{OnePerson.name}}</td>
 
@@ -31,18 +32,20 @@
 					<td><input type="checkbox" ng-model="OnePerson.rich" ng-checked="OnePerson.rich" ng-change="checkboxWatcher($index)"></td>
 					<td><input type="checkbox" ng-model="OnePerson.genious" ng-checked="OnePerson.genious" ng-change="checkboxWatcher($index)"></td>
 
-					<td><span class="glyphicon glyphicon-remove" ng-click="deletePerson($index)"></span></td>
+					<td style="width:110px"><span class="glyphicon glyphicon-remove" ng-if="show[$index]"  ng-click="deleteConfirm($index)"></span>
+					<span ng-if="!show[$index]" ng-click="deleteConfirm($index)">are you sure?   <span class="label label-default" ng-click="deletePerson($index)">YES</span>   <span class="label label-default" ng-click="deleteCanceled($index)" ng-Mouseleave="deleteCanceled($index)">NO</span></span>
+					</td>
 				</tr>
 			</table>
 
 
 
-			<div >
-				<a ui-sref="superPower" ng-click="showChoosed('superPower')">superPower<span> </span>
+			<div class="text" >
+				<a name="superPower" ng-class="{pressed:pressed[superPower]}" ng-click="showChoosed('superPower')">superPower
 				</a>
-				<a ui-sref="rich" ng-click="showChoosed('rich')">rich<span> </span>
+				<a name="rich" ng-class="{pressed:pressed[superPower]}" ng-click="showChoosed('rich')">rich
 				</a>
-				<a ui-sref="genious" ng-click="showChoosed('genious')">genious<span> </span>
+				<a name="genious" ng-class="{pressed:pressed[superPower]}" ng-click="showChoosed('genious')">genious
 				</a>
 			</div>
 		</div>

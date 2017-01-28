@@ -1,5 +1,5 @@
 	
-	app.controller('mainBarController', function ($scope, $rootScope, $interval) {
+	app.controller('mainBarController', function ($scope, $rootScope) {
 		$scope.classes = {
 			name: "glyphicon glyphicon-triangle-bottom",
 			superPower: "glyphicon glyphicon-triangle-bottom",
@@ -10,26 +10,51 @@
 		$scope.reverse = true;
 		$scope.persons = [];
 		$scope.person = {};
+		$scope.show = [];
+		
+		//$scope.byfield = localStorage.getItem("field");
+		//localStorage.setItem("field", "");
 		let person = {};
 		let totalPersons = {};
-		$interval (function () {
+		$scope.del = false;
+		//$interval (function () {
 			console.log ($scope.byfield)
-		},500)
+		//},500)
 		
 		$scope.addPerson = (evt) => {
-			//console.log($scope.index);
+			
+			$scope.byfield={};
+			$scope.isPerson = true;
+
+			console.log('index',$scope.index);
 			$scope.persons.push($scope.person);
+			var index = $scope.persons.length-1;
+			$scope.show[index] = true;
+			
 			changePerson();
 			$rootScope.$broadcast("infoSend", totalPersons);
 			$scope.person = {};
 		};
 
-		$scope.deletePerson = (index) => {
+		$scope.deleteConfirm = (index) => {
+			$scope.show[index] = false;
 			
+			console.log('index',index);
+
+		};
+
+		$scope.deleteCanceled = (index) => {
+			$scope.show[index] = true;
+			
+			console.log('index',index);
+
+		};
+
+		$scope.deletePerson = (index) => {
 			$scope.persons.splice(index,1);
 			
 			changePerson();
-			
+			$scope.show[index] = true;
 			$rootScope.$broadcast("infoSend", totalPersons);
 
 		};
@@ -59,15 +84,29 @@
     		$scope.propertyName = propName;
 
 		}
+		
 		$scope.showChoosed = (propName) => {
-			$scope.byfield = {};
-			console.log ('clear')
-			$scope.person[propName]=true;
-			$scope.byfield[propName] = true;	
-			console.log ($scope.byfield) 
+			$scope.byfield={};
+			$sope.pressed[propName] = true;
 
+			for (key in $scope.person) {$scope.person[key] === false;}
+			$scope.isPerson = true;
+			$scope.person[propName] = true;
+			//$scope.byfield = {propName:true};
+			$scope.byfield[propName] = true;
+			
+			
 		}	
-
+		//console.log("person");
+		
+console.log ('out', $scope.byfield) ;
+		function deleteOne (index) {
+			$scope.persons.splice(index,1);
+			
+			changePerson();
+			
+			$rootScope.$broadcast("infoSend", totalPersons);
+		}
 		function changePerson ()  {
 			totalPersons = {
 			superPower:0,
