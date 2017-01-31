@@ -11,7 +11,7 @@
 		$scope.persons = [];
 		$scope.person = {};
 		$scope.show = [];
-		
+		$scope.pressed=[];
 		//$scope.byfield = localStorage.getItem("field");
 		//localStorage.setItem("field", "");
 		let person = {};
@@ -87,9 +87,9 @@
 		
 		$scope.showChoosed = (propName) => {
 			$scope.byfield={};
-			$sope.pressed[propName] = true;
+			$scope.pressed[propName] = true;
 
-			for (key in $scope.person) {$scope.person[key] === false;}
+			
 			$scope.isPerson = true;
 			$scope.person[propName] = true;
 			//$scope.byfield = {propName:true};

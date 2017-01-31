@@ -10,13 +10,12 @@
 <!--<script src="./bower_components/angular-ui-router.js"></script>-->
 </head>
 <body>
-
-	
 	<!--<div id="content" ui-view></div>-->
-	<div ng-include=" './components/mainBar/mainBar.html' "></div>
+	<div class="row">
+		<div ng-include="'./components/mainBar/mainBar.html'" ></div>
 
-	<div ng-include=" './components/sideBar/sideBar.html' "></div>
-
+		<div ng-include="'./components/sideBar/sideBar.html'"></div>
+	</div>
 	
 	<!--bower:js-->
 	<!--endinject-->
