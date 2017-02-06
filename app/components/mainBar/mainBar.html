@@ -1,36 +1,39 @@
 <div  ng-controller='mainBarController' class="mainBar">
-	<div class="col-md-8 align_center" >
+	<div class="col-md-10 align_center" >
 		<h2 class="text">Add new Person</h2>
-		<input type="text" placeholder="Enter name" ng-model="person.name">
-		<label><input type="checkbox" ng-model="person.superPower">Super Power  </label>
-		<label><input type="checkbox" ng-model="person.rich">Rich  </label>
-		<label><input type="checkbox" ng-model="person.genious">Genious</label>
-		<button class="add-name" ng-click="addPerson()"> Add </button>
-		<div class="scrollTable">
-			<div ng-show="isPerson" >
-			<table class="table table-bordered" >
+		<div class="add-person">
+			<input type="text" placeholder="Enter name" ng-model="person.name">
+			<label><input type="checkbox" ng-model="person.superPower">Super Power  </label>
+			<label><input type="checkbox" ng-model="person.rich">Rich  </label>
+			<label><input type="checkbox" ng-model="person.genious">Genious</label>
+			<button  ng-click="addPerson()"> Add </button>
+		</div>
+		<div class="add-person" ng-show="isPerson" >
+			<table class="table table-fixed" >
+				<thead>
 				<tr>
-					<th>Name <span  ng-class="classes.name" ng-click="sortBy('name')"></span></th>
+					<th class="col-md-3">Name <span  ng-class="classes.name" ng-click="sortBy('name')"></span></th>
 
-					<th>SuperPower <span  ng-class="classes.superPower"  ng-click="sortBy('superPower')"></span></th>
-					<th>Rich <span  ng-class="classes.rich" ng-click="sortBy('rich')"></span></th>
-					<th>Genious <span  ng-class="classes.genious" ng-click="sortBy('genious')"></span></th>
-					<th>Delete</th>
+					<th class="col-md-2">SuperPower <span  ng-class="classes.superPower"  ng-click="sortBy('superPower')"></span></th>
+					<th class="col-md-2">Rich <span  ng-class="classes.rich" ng-click="sortBy('rich')"></span></th>
+					<th class="col-md-2">Genious <span  ng-class="classes.genious" ng-click="sortBy('genious')"></span></th>
+					<th class="col-md-2">Delete</th>
 				</tr>
+				</thead>
 				<tbody>
 					<tr class="active" ng-repeat="OnePerson in persons | orderBy:propertyName:reverse | filter: byfield" >
-						<td>{{OnePerson.name}}</td>
-						<td><input type="checkbox" ng-model="OnePerson.superPower" ng-checked="OnePerson.superPower" ng-change="checkboxWatcher($index)" ></td>
-						<td><input type="checkbox" ng-model="OnePerson.rich" ng-checked="OnePerson.rich" ng-change="checkboxWatcher($index)"></td>
-						<td><input type="checkbox" ng-model="OnePerson.genious" ng-checked="OnePerson.genious" ng-change="checkboxWatcher($index)"></td>
+						<td class="row-name">{{OnePerson.name}}</td>
+						<td class="col-md-1"><input type="checkbox" ng-model="OnePerson.superPower" ng-checked="OnePerson.superPower" ng-change="checkboxWatcher($index)" ></td>
+						<td class="col-md-1"><input type="checkbox" ng-model="OnePerson.rich" ng-checked="OnePerson.rich" ng-change="checkboxWatcher($index)"></td>
+						<td class="col-md-1"><input type="checkbox" ng-model="OnePerson.genious" ng-checked="OnePerson.genious" ng-change="checkboxWatcher($index)"></td>
 
-						<td style="width:110px"><span class="glyphicon glyphicon-remove text" ng-if="show[$index]"  ng-click="deleteConfirm($index)"></span>
+						<td class="col-md-1"><span class="glyphicon glyphicon-remove text" ng-if="show[$index]"  ng-click="deleteConfirm($index)"></span>
 						<span ng-if="!show[$index]" ng-click="deleteConfirm($index)">are you sure?   <span class="label label-default" ng-click="deletePerson($index)">YES</span>   <span class="label label-default" ng-click="deleteCanceled($index)" ng-Mouseleave="deleteCanceled($index)">NO</span></span>
 						</td>
 					</tr>
 				</tbody>
 			</table>
-			</div>
+			
 		</div>
 		<div ng-show="isPerson" class="text" >
 			<a name="superPower" ng-class="{pressed:pressed[superPower]}" ng-click="showChoosed('superPower')">superPower

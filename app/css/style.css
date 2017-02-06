@@ -11,7 +11,7 @@
 .align_center
 {
 	position: relative;
-	right: -15%;
+	right: -10%;
 	margin-bottom: 15px;
 }
 .filters {
@@ -27,6 +27,15 @@
 
 }
 
+.add-person {
+	position: relative;
+	right: -10%;
+	margin: 15px 0 15px 0 ;
+}
+
+.row-name {
+	width: 200px;
+}
 
 .mainBar{
 	padding-top: 1%;
@@ -48,4 +57,26 @@
 }
 .sideBar h3 {
 	padding-left: 5%;
+}
+
+
+.table-fixed tbody {
+  height: 230px;
+  overflow-y: auto;
+  width: 89%;
+}
+
+.table-fixed thead {
+	font-size: 11px;
+	text-align:  center;
+	width: 97%; 
+}
+.table-fixed thead, .table-fixed tbody, .table-fixed tr, .table-fixed td, .table-fixed th {
+  display: block;
+
+}
+.table-fixed tbody td, .table-fixed thead > tr> th {
+  float: left;
+  border-bottom-width: 0;
+
 }
